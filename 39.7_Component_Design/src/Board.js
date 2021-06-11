@@ -37,14 +37,26 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     for (let r = 0; r < nrows; r++) {
       initialBoard.push([])
       for (let c = 0; c < ncols; c++){
-        initialBoard[r].push(false)
+        //Create random num,  0 === false , 1 === true, 50/50 chance
+        const rand = () => {
+          let num = Math.floor(Math.random() * 2)
+          return num;
+        }
+        initialBoard[r].push(rand() === 0 ? false : true)
       }
     }
     return initialBoard;
   }
 
-  function hasWon() {
+  function hasWon(stateBoard) {
     // TODO: check the board in state to determine whether the player has won.
+    // checks if every val is true, else return false
+    for (let rows of stateBoard) {
+      let allTrue = rows.every((val) => {
+        return val === true
+      })
+      return allTrue
+    }
   }
 
   function flipCellsAround(coord) {
