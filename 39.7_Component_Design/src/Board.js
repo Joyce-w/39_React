@@ -28,7 +28,7 @@ import "./Board.css";
  **/
 
 function Board({ nrows, ncols, chanceLightStartsOn }) {
-  const [board, setBoard] = useState(createBoard());
+  const [board, setBoard] = useState(createBoard(nrows,ncols));
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard(nrows, ncols) {
@@ -44,14 +44,16 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
         }
         initialBoard[r].push(
           <Cell
-            flipCellsAroundMe={flipCellsAround}
-            isLit={rand() < chanceLightStartsOn ? true : false}/>
+            key={`${r}-${c}`} coords={`${r}-${c}`} flipCellsAroundMe={flipCellsAround}
+            isLit={rand() < chanceLightStartsOn ? false : true}
+          />
           )
       }
     }
     return initialBoard;
   }
-  console.log(createBoard(3,4))
+  console.log(board)
+  
   function hasWon(stateBoard) {
     // TODO: check the board in state to determine whether the player has won.
     // checks if every val is true, else return false
@@ -64,8 +66,10 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   }
 
   function flipCellsAround(coord) {
+    console.log(coord.nativeEvent)
     setBoard(oldBoard => {
       const [y, x] = coord.split("-").map(Number);
+
 
       const flipCell = (y, x, boardCopy) => {
         // if this coord is actually on board, flip it
@@ -76,7 +80,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-      const copyOldBoard = [...oldBoard]
+      const copyOldBoard = [...board]
       // TODO: in the copy, flip this cell and the cells around it
 
       // TODO: return the copy
@@ -91,9 +95,13 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   return (
     <div>
-      {createBoard(3,4)}
+      {board}
     </div>
   )
 }
 
 export default Board;
+
+
+//newBoard is technically a new array but it references oldBoard. Because row points to an array in oldBoard, if you were to change a value of the array in oldBoard, it would affect newBoard too
+//So you need to make a deep copy -- meaning that recreate the board all the way down to the boolean values
