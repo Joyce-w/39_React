@@ -37,17 +37,21 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     for (let r = 0; r < nrows; r++) {
       initialBoard.push([])
       for (let c = 0; c < ncols; c++){
-        //Create random num,  0 === false , 1 === true, 50/50 chance
+        //Create random num,  0 === false , 1 === true
         const rand = () => {
-          let num = Math.floor(Math.random() * 2)
+          let num = (Math.random() * 1)
           return num;
         }
-        initialBoard[r].push(rand() === 0 ? false : true)
+        initialBoard[r].push(
+          <Cell
+            flipCellsAroundMe={flipCellsAround}
+            isLit={rand() < chanceLightStartsOn ? true : false}/>
+          )
       }
     }
     return initialBoard;
   }
-
+  console.log(createBoard(3,4))
   function hasWon(stateBoard) {
     // TODO: check the board in state to determine whether the player has won.
     // checks if every val is true, else return false
@@ -68,11 +72,11 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
         if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
           boardCopy[y][x] = !boardCopy[y][x];
-        }
+        } 
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-
+      const copyOldBoard = [...oldBoard]
       // TODO: in the copy, flip this cell and the cells around it
 
       // TODO: return the copy
@@ -85,7 +89,11 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   // make table board
 
-  // TODO
+  return (
+    <div>
+      {createBoard(3,4)}
+    </div>
+  )
 }
 
 export default Board;
