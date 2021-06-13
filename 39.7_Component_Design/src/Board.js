@@ -35,7 +35,31 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
     for (let r = 0; r < nrows; r++) {
-      initialBoard.push([])
+      let row = []
+      for (let c = 0; c < ncols; c++) {
+        //Create random num,  0 === false , 1 === true
+        const rand = () => {
+          let num = (Math.random() * 1)
+          return num;
+        }
+        row.push(
+                  <Cell
+            key={`${r}-${c}`} coords={`${r}-${c}`} flipCellsAroundMe={flipCellsAround}
+            isLit={rand() < chanceLightStartsOn ? false : true}
+          />    
+        )
+      }
+      initialBoard.push(
+        <tr>
+          {row}
+        </tr>
+      )
+      /* initialBoard.push(
+        []
+        )
+        initialBoard.map(val => {
+
+        })
       for (let c = 0; c < ncols; c++){
         //Create random num,  0 === false , 1 === true
         const rand = () => {
@@ -43,12 +67,13 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
           return num;
         }
         initialBoard[r].push(
-          <Cell
+                  <Cell
             key={`${r}-${c}`} coords={`${r}-${c}`} flipCellsAroundMe={flipCellsAround}
             isLit={rand() < chanceLightStartsOn ? false : true}
-          />
-          )
-      }
+          />    
+        )
+
+      } */
     }
     return initialBoard;
   }
@@ -94,9 +119,9 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   // make table board
 
   return (
-    <div>
+    <>
       {board}
-    </div>
+    </>
   )
 }
 
