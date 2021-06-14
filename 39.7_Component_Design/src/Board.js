@@ -29,7 +29,7 @@ import "./Board.css";
 
 function Board({ nrows, ncols, chanceLightStartsOn }) {
   const [board, setBoard] = useState(createBoard(nrows,ncols));
-
+  
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard(nrows, ncols) {
     let initialBoard = [];
@@ -44,9 +44,9 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
         }
         row.push(
                   <Cell
-            key={`${r}-${c}`} coords={`${r}-${c}`} flipCellsAroundMe={flipCellsAround}
+            key={`${r}-${c}`} coord={`${r}-${c}`} flipCellsAroundMe={() => flipCellsAround(`${r}-${c}`)}
             isLit={rand() < chanceLightStartsOn ? false : true}
-          />    
+          /> 
         )
       }
       initialBoard.push(
@@ -77,7 +77,6 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
     }
     return initialBoard;
   }
-  console.log(board)
   
   function hasWon(stateBoard) {
     // TODO: check the board in state to determine whether the player has won.
@@ -91,10 +90,9 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   }
 
   function flipCellsAround(coord) {
-    console.log(coord.nativeEvent)
+    console.log(coord)
     setBoard(oldBoard => {
       const [y, x] = coord.split("-").map(Number);
-
 
       const flipCell = (y, x, boardCopy) => {
         // if this coord is actually on board, flip it
@@ -120,7 +118,12 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   return (
     <>
-      {board}
+    <table>
+      <tbody>
+      {board}          
+      </tbody>
+    </table>
+ 
     </>
   )
 }
