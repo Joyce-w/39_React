@@ -27,56 +27,50 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows, ncols, chanceLightStartsOn }) {
+function Board({ nrows=5, ncols=4, chanceLightStartsOn=0.4 }) {
   const [board, setBoard] = useState(createBoard(nrows,ncols));
-  
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard(nrows, ncols) {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
-    for (let r = 0; r < nrows; r++) {
+    for (let i = 0; i < ncols; i++){
       let row = []
-      for (let c = 0; c < ncols; c++) {
-        //Create random num,  0 === false , 1 === true
-        const rand = () => {
-          let num = (Math.random() * 1)
-          return num;
-        }
-        row.push(
-                  <Cell
-            key={`${r}-${c}`} coord={`${r}-${c}`} flipCellsAroundMe={() => flipCellsAround(`${r}-${c}`)}
-            isLit={rand() < chanceLightStartsOn ? false : true}
-          /> 
-        )
+      initialBoard.push(row)
+      for (let j = 0; j < nrows; j++){
+        row.push(Math.random() < chanceLightStartsOn ? true : false)
       }
-      initialBoard.push(
-        <tr>
-          {row}
-        </tr>
-      )
-      /* initialBoard.push(
-        []
-        )
-        initialBoard.map(val => {
-
-        })
-      for (let c = 0; c < ncols; c++){
-        //Create random num,  0 === false , 1 === true
-        const rand = () => {
-          let num = (Math.random() * 1)
-          return num;
-        }
-        initialBoard[r].push(
-                  <Cell
-            key={`${r}-${c}`} coords={`${r}-${c}`} flipCellsAroundMe={flipCellsAround}
-            isLit={rand() < chanceLightStartsOn ? false : true}
-          />    
-        )
-
-      } */
     }
+    console.log(initialBoard)
     return initialBoard;
   }
+
+  // function createBoard(nrows, ncols) {
+  //   let initialBoard = [];
+  //   // TODO: create array-of-arrays of true/false values
+  //   for (let r = 0; r < nrows; r++) {
+  //     let row = []
+  //     for (let c = 0; c < ncols; c++) {
+  //       //Create random num,  0 === false , 1 === true
+  //       const rand = () => {
+  //         let num = (Math.random() * 1)
+  //         return num;
+  //       }
+  //       row.push(
+  //                 <Cell
+  //           key={`${r}-${c}`} coord={`${r}-${c}`} flipCellsAroundMe={() => flipCellsAround(`${r}-${c}`)}
+  //           isLit={rand() < chanceLightStartsOn ? false : true}
+  //         /> 
+  //       )
+  //     }
+  //     initialBoard.push(
+  //       <tr>
+  //         {row}
+  //       </tr>
+  //     )
+
+  //   }
+  //   return initialBoard;
+  // }
   
   function hasWon(stateBoard) {
     // TODO: check the board in state to determine whether the player has won.
@@ -118,13 +112,15 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   return (
     <>
-    <table>
-      <tbody>
-      {board}          
-      </tbody>
-    </table>
- 
+      <table>
+        <tbody>
+        {board.map(row => 
+          <tr>{row.map(tile => <Cell isLit={ tile ? true : false}/>)}</tr>
+        )}            
+        </tbody>
+      </table>
     </>
+
   )
 }
 
