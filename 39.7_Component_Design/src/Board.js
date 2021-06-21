@@ -27,23 +27,23 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows=5, ncols=4, chanceLightStartsOn=0.4 }) {
-  const [board, setBoard] = useState(createBoard(nrows,ncols));
+function Board({ nrows = 5, ncols = 4, chanceLightStartsOn = 0.4 }) {
+  const [board, setBoard] = useState(createBoard(nrows, ncols));
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard(nrows, ncols) {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
-    for (let i = 0; i < ncols; i++){
+    for (let i = 0; i < ncols; i++) {
       let row = []
       initialBoard.push(row)
-      for (let j = 0; j < nrows; j++){
+      for (let j = 0; j < nrows; j++) {
         row.push(Math.random() < chanceLightStartsOn ? true : false)
       }
     }
-    console.log(initialBoard)
     return initialBoard;
   }
 
+  console.log(board)
   // function createBoard(nrows, ncols) {
   //   let initialBoard = [];
   //   // TODO: create array-of-arrays of true/false values
@@ -84,7 +84,6 @@ function Board({ nrows=5, ncols=4, chanceLightStartsOn=0.4 }) {
   }
 
   function flipCellsAround(coord) {
-    console.log(coord)
     setBoard(oldBoard => {
       const [y, x] = coord.split("-").map(Number);
 
@@ -93,7 +92,7 @@ function Board({ nrows=5, ncols=4, chanceLightStartsOn=0.4 }) {
 
         if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
           boardCopy[y][x] = !boardCopy[y][x];
-        } 
+        }
       };
 
       // TODO: Make a (deep) copy of the oldBoard
@@ -109,19 +108,35 @@ function Board({ nrows=5, ncols=4, chanceLightStartsOn=0.4 }) {
   // TODO
 
   // make table board
+  let tableBoard = [];
+  for (let y = 0; y < ncols; y++) {
+    let row = [];
+    for (let x = 0; x < nrows; x++) {
+      let coord = `${y}-${x}`
+      row.push(
+        <Cell
+          key={coord}
+          isLit={board[y][x]}
+          flipCellsAroundMe={() => flipCellsAround(coord)}
+        />
+      )
+    }
+    tableBoard.push(<tr key={y}> { row } </tr>)
+  }
+
+
+  console.log(tableBoard)
+   
+  
 
   return (
-    <>
-      <table>
-        <tbody>
-        {board.map(row => 
-          <tr>{row.map(tile => <Cell isLit={ tile ? true : false}/>)}</tr>
-        )}            
-        </tbody>
-      </table>
-    </>
-
+    <table>
+      <tbody>
+        {tableBoard}
+      </tbody>      
+    </table>
   )
+
 }
 
 export default Board;
