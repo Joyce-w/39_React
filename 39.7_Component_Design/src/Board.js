@@ -27,7 +27,7 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.4 }) {
+function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = .5 }) {
   const [board, setBoard] = useState(createBoard(nrows, ncols));
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard(nrows, ncols) {
@@ -42,8 +42,6 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.4 }) {
     }
     return initialBoard;
   }
-
-  console.log(board)
   
   function hasWon(stateBoard) {
     // TODO: check the board in state to determine whether the player has won.
@@ -59,20 +57,23 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.4 }) {
   function flipCellsAround(coord) {
     setBoard(oldBoard => {
       const [y, x] = coord.split("-").map(Number);
-      console.log(y, x)
       
       const flipCell = (y, x, boardCopy) => {
         // if this coord is actually on board, flip it
         if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
           boardCopy[y][x] = !boardCopy[y][x];
         }
-
       };
 
       // TODO: Make a (deep) copy of the oldBoard
       const copyOldBoard = [...board]
       // TODO: in the copy, flip this cell and the cells around it
       flipCell(y, x, copyOldBoard)
+      
+      flipCell(y + 1, x, copyOldBoard)
+      flipCell(y - 1, x, copyOldBoard)
+      flipCell(y, x + 1, copyOldBoard)
+      flipCell(y, x - 1, copyOldBoard)
 
       // TODO: return the copy
       return copyOldBoard
@@ -80,7 +81,15 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.4 }) {
   }
 
   // if the game is won, just show a winning msg & render nothing else
+  if (hasWon(board)) {
+    return (
+      <>
+        <h1>You Won!</h1>
+        <button onClick={() => setBoard(createBoard(nrows, ncols)) }>Play Again?</button>
+      </>      
+    )
 
+  }
 
   // make table board
   let tableBoard = [];
@@ -101,7 +110,7 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.4 }) {
 
 
   return (
-    <table>
+    <table className="Board-table">
       <tbody>
         {tableBoard}
       </tbody>      
