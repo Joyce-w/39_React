@@ -1,15 +1,22 @@
 .NewBoxForm-form {
-    width:fit-content;
+    border-left: 5px solid rgb(0, 137, 228) ;
+    background-color: rgb(186, 221, 245);
+    width:20em;
     margin: auto;
+    padding: 5%;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
 .NewBoxForm-form {
-    padding: 2%;
+    padding: 2em;
 }
 
 .NewBoxForm-input{
-    margin: 5%;
+    margin: 3%;
+}
+
+.NewBoxForm-h4{
+    margin-bottom: 1em;
 }
