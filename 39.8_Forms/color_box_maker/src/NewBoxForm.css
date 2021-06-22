@@ -1,0 +1,15 @@
+.NewBoxForm-form {
+    width:fit-content;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.NewBoxForm-form {
+    padding: 2%;
+}
+
+.NewBoxForm-input{
+    margin: 5%;
+}
