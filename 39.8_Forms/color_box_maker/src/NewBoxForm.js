@@ -24,7 +24,7 @@ const NewBoxForm = ({ addBox }) => {
 
     //handle changes when form is submitted
     const handleSubmit = (e) => {
-        e.preventDefult();
+        e.preventDefault();
         addBox(formData.width, formData.height, formData.bgColor);
         setFormData(INITIAL_STATE)
     }
