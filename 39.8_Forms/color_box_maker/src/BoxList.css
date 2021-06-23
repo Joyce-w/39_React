@@ -1,3 +1,9 @@
 .BoxList {
 text-align: center;
 }
+
+.BoxList-Boxes{
+    justify-content: center;
+    margin: 5%;
+    display: flex;
+}
