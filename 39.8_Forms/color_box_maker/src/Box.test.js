@@ -1,13 +1,14 @@
-import { render} from '@testing-library/react';
-import App from './App';
+import { render, screen } from '@testing-library/react';
+import Box from './Box';
 
 //smoke test
 test('renders w/o crashing', () => {
-  render(<App />);
+  render(<Box />);
 });
+
 
 //snapshot test
 it("matches snapshot", () => {
-    const { asFragment } = render(<App />)
+    const { asFragment } = render(<Box />)
     expect(asFragment()).toMatchSnapshot();
 })
