@@ -4,8 +4,17 @@ exports[`matches snapshot 1`] = `
 <DocumentFragment>
   <div
     class="Todo"
+    data-testid="Todo-test"
   >
-    Todo
+    <li
+      class="Todo-li"
+    >
+      <button
+        class="Todo-btn"
+      >
+        x
+      </button>
+    </li>
   </div>
 </DocumentFragment>
 `;

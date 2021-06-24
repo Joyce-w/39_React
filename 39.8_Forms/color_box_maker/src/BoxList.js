@@ -22,7 +22,7 @@ const BoxList = () => {
     ]
     //state for box properties
     const [ boxData, setBoxData ] = useState(INITIAL_STATE)
-
+    console.log(boxData)
     //create functional prop to pass down to children
     const addBox = ( width, height, bgColor ) => {
         setBoxData((boxData) => [...boxData, { width, height, bgColor, id:uuid() }])
@@ -31,7 +31,7 @@ const BoxList = () => {
     //remove box on click
     const remove = (e) => {
         let parentBoxID = e.target.parentElement.id
-
+        console.log(e.target.parentElement)
         //filter data to update boxData without the removed box
         setBoxData(boxData.filter(({id}) => {
             return id !== parentBoxID;
@@ -43,6 +43,7 @@ const BoxList = () => {
             <h1>BoxList</h1>
             <NewBoxForm addBox={addBox} />
             
+
             <div className="BoxList-Boxes">
                 {boxData.map(({ id, width, height, bgColor }) => {
                     return <Box key={id} id={ id }boxWidth={width} boxHeight={height} bgColor={bgColor} remove={ remove }/>

@@ -12,3 +12,11 @@ it("matches snapshot", () => {
   const { asFragment } = render(<TodoList />)
   expect(asFragment()).toMatchSnapshot();
 })
+
+//specialized test
+test("it should display list", () => {
+  const { getByText} = render(<TodoList />)
+  
+  expect(getByText("What to do List")).toBeInTheDocument();
+
+})

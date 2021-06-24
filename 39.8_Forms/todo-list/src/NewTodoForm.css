@@ -1,0 +1,20 @@
+.NewTodoForm-form{
+    margin: 2% auto;
+    width: fit-content;
+    padding: 1%;
+    border: 3px solid grey;
+    border-radius: 15px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3)
+}
+
+.NewTodoForm-btn{
+    margin:0.5em;
+    border-radius: 15px;
+    border: solid grey 1px;
+    background-color: rgb(226, 226, 226);
+}
+
+.NewTodoForm-input{
+    border-radius: 5px;
+    border: solid grey 1px;
+}

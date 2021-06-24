@@ -1,12 +1,15 @@
 import React from "react";
+import './Todo.css'
 
 
-const Todo = () => {
-
+const Todo = ({ id, task , remove}) => {
     return (
-        <>
-            <div className="Todo">Todo</div>
-        </>
+            <div data-testid="Todo-test" id={ id } className="Todo">
+            <li className="Todo-li">
+                {task} 
+                <button className="Todo-btn" onClick={ remove }>x</button>
+            </li>
+            </div>
     )
 }
 

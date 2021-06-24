@@ -4,6 +4,25 @@ exports[`matches snapshot 1`] = `
 <DocumentFragment>
   <form
     class="NewTodoForm-form"
-  />
+  >
+    <label
+      for="task"
+    >
+      New Todo 
+    </label>
+    <input
+      class="NewTodoForm-input"
+      id="task"
+      name="task"
+      placeholder="More things to do"
+      type="text"
+      value=""
+    />
+    <button
+      class="NewTodoForm-btn"
+    >
+      Add new task
+    </button>
+  </form>
 </DocumentFragment>
 `;

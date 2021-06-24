@@ -1,0 +1,10 @@
+.Todo {
+    width: 10em;
+}
+
+.Todo-btn{
+    border: none;
+    border-radius: 14px;
+    margin: 0.5em;
+    background-color: aliceblue;
+}
