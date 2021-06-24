@@ -12,3 +12,4 @@ it("matches snapshot", () => {
     const { asFragment } = render(<Box />)
     expect(asFragment()).toMatchSnapshot();
 })
+
