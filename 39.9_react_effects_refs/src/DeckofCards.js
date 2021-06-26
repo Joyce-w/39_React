@@ -61,7 +61,9 @@ const DeckofCards = () => {
     return (
  
         <div className="DeckofCards">
-            <button className="DeckofCards-btn" onClick={ toggleDraw}> Draw Card </button>
+            <button className="DeckofCards-btn" onClick={toggleDraw}>
+                { autoDraw ? "Stop drawing" : "Start Drawing"}
+            </button>
 
             <div className="DeckofCards-card">
                 {card === '' ? 'Loading' :

@@ -1,6 +1,7 @@
+# Getting Started with React Card Drawing App
 ![Card Preview](./src/preview.JPG)
 
-# Getting Started with Create React App
+Uses state, useEffect, and useRef hooks to trigger a card to draw from an API deck when a button is clicked.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Learned the usage of useEffect and useRef
