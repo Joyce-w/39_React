@@ -6,9 +6,9 @@ import "./DeckofCards.css"
 const DeckofCards = () => {
     
     const [deckID, setDeckID] = useState()
-    const [card, setCard] = useState('')
-    console.log(card)
-    // console.log(card)
+    const [card, setCard] = useState([])
+    const [autoDraw, setAutoDraw] = useState(false)
+    const timerRef = useRef(null);
 
     //add effect to render a deck id after page loads
     useEffect(() => {
@@ -25,40 +25,43 @@ const DeckofCards = () => {
     },[])
     
     //function to grab a card when page loads
-    async function grabCard() {
-        const deck = await axios.get(`https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`)
-        let newCard = deck.data.cards[0].image;
-        if (deck.data.remaining === 0) {
-            alert("Last card")
-            setCard(null)
-        } else {
-            setCard([...card, newCard]);
+    useEffect(() => {
+        async function grabCard() {
+            const deck = await axios.get(`https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`)
+            let newCard = deck.data.cards[0].image;
+
+            //handle when no cards are remaining
+            if (deck.data.remaining === 0) {
+                alert("Last card")
+                setAutoDraw(false)
+            } else {
+                setCard([...card, newCard]);
+            }
         }
+
+        //trigger drawing interval when autoDraw toggled
+        if (autoDraw && !timerRef.current) {
+            timerRef.current = setInterval(async () => {
+                await grabCard();
+            }, 1000);
+        }
+        
+        //cleanup function
+        return () => {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+
+    })
+    //toggles autoDraw state 
+    const toggleDraw = () => {
+        setAutoDraw(autoDraw => !autoDraw)
     }
-    
-    const timerId = useRef();
-    console.log(timerId)
-
-    // //trigger timer when clicked
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         setSeconds(seconds => seconds + 1)
-    //         grabCard();
-    //     }, 1000)
-
-    //     return () => {
-    //         clearInterval(timerId.current)
-    //     }
-    // },[])
-
-    // const stopTimer = () => {
-    //     clearInterval(timerId.current)
-    // }
 
     return (
  
         <div className="DeckofCards">
-            <button className="DeckofCards-btn" onClick={() => grabCard()}> Draw Card </button>
+            <button className="DeckofCards-btn" onClick={ toggleDraw}> Draw Card </button>
 
             <div className="DeckofCards-card">
                 {card === '' ? 'Loading' :
