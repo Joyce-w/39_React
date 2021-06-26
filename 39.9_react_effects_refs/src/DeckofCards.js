@@ -4,10 +4,10 @@ import Card from "./Card"
 import "./DeckofCards.css"
 
 const DeckofCards = () => {
-
     
     const [deckID, setDeckID] = useState()
-    const [card, setCard] = useState()
+    const [card, setCard] = useState('')
+    console.log(card)
     // console.log(card)
 
     //add effect to render a deck id after page loads
@@ -27,37 +27,33 @@ const DeckofCards = () => {
     //function to grab a card when page loads
     async function grabCard() {
         const deck = await axios.get(`https://deckofcardsapi.com/api/deck/${deckID}/draw/?count=1`)
-        let newCard = deck.data;
-
-        if (newCard.remaining === 0) {
+        let newCard = deck.data.cards[0].image;
+        if (deck.data.remaining === 0) {
             alert("Last card")
             setCard(null)
         } else {
-            setCard(newCard);
+            setCard([...card, newCard]);
         }
     }
     
-    const [drawing, setDrawing] = useState(false);
-
-    const [seconds, setSeconds] = useState(0)
-
     const timerId = useRef();
     console.log(timerId)
 
-    //trigger timer when clicked
-    useEffect(() => {
-        timerId.current = setInterval(() => {
-            setSeconds(seconds => seconds + 1)
-            grabCard();
-        }, 1000)
+    // //trigger timer when clicked
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         setSeconds(seconds => seconds + 1)
+    //         grabCard();
+    //     }, 1000)
 
-    return clearInterval(timerId.current)
+    //     return () => {
+    //         clearInterval(timerId.current)
+    //     }
+    // },[])
 
-    },[])
-
-    const stopTimer = () => {
-        clearInterval(timerId.current)
-    }
+    // const stopTimer = () => {
+    //     clearInterval(timerId.current)
+    // }
 
     return (
  
@@ -65,10 +61,10 @@ const DeckofCards = () => {
             <button className="DeckofCards-btn" onClick={() => grabCard()}> Draw Card </button>
 
             <div className="DeckofCards-card">
-                { card ? <Card card={card.cards[0].image} /> : "Loading..."}                  
+                {card === '' ? 'Loading' :
+                    card.map(card => < Card card={card} />)
+                }
             </div>
-
-            <button onClick={ stopTimer }>Drawing</button>
         </div>
 
     )

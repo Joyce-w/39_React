@@ -1,7 +1,10 @@
+
 .DeckofCards-btn {
     margin: 1em;
 }
 
 .DeckofCards-card{
+    display: flex;
+    justify-content: center;
     margin: 5%;
 }

@@ -1,4 +1,5 @@
 import React from "react"
+import "./Card.css"
 
 const Card = ({ card }) => {
 
@@ -11,7 +12,7 @@ const Card = ({ card }) => {
     }
 
     return (
-        <img style={divStyle} src={card} alt="card"></img>
+        <img className="Card" style={divStyle} src={card} alt="card"></img>
     )
 
 }
