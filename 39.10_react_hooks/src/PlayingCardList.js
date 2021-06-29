@@ -16,9 +16,9 @@ function CardTable() {
     const response = await axios.get(
       "https://deckofcardsapi.com/api/deck/new/draw/"
       );
-      updateData(response.data.cards[0])
+      updateData(response.data)
   };
-  
+console.log(data)
   return (
     <div className="PlayingCardList">
       <h3>Pick a card, any card!</h3>
@@ -27,7 +27,7 @@ function CardTable() {
       </div>
       <div className="PlayingCardList-card-area">
         {data.map(cardData => (
-          <PlayingCard key={cardData.id} front={cardData.res.image} />
+          <PlayingCard key={cardData.id} front={cardData.res.cards[0].image} />
         ))}
       </div>
     </div>
