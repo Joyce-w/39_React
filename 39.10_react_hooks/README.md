@@ -1,5 +1,9 @@
 # React Cards
+![App Preview](./src/cardHooks.png)
 Assignment designed to practice custom hooks to refactor existing code.
+- Write hook to flip the cards when clicked.
+- Write hook to pull data from an API to use in multiple components.
+- Write hook to clear state data of corresponding components.
 
 ## Available Scripts
 
