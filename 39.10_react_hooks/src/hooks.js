@@ -16,17 +16,19 @@ const useFlip = () => {
 
 //useAxios in PLayingCardList
 const useAxios = () => {
+
     //create state to hold data
     const [data, setData] = useState([])
 
     //callback function 
     const updateData = async (res) => {
-
+        console.log(res)
     //update setData to have old and newData
         setData(() => 
-        [...data,
-        {res, id: uuid()}]
-    )
+            [...data,
+            {res, id: uuid()}]
+        
+        )
     };
 
     return [data, updateData];
