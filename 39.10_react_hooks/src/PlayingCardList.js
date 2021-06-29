@@ -10,7 +10,7 @@ import { useAxios } from "./hooks";
 function CardTable() {
 
   //destructure array in useAxios 
-  const [data, updateData] = useAxios();
+  const [data, updateData, clearCards] = useAxios();
 
     const addCard = async () => {
     const response = await axios.get(
@@ -18,6 +18,8 @@ function CardTable() {
       );
       updateData(response.data)
   };
+
+
 console.log(data)
   return (
     <div className="PlayingCardList">
@@ -30,6 +32,7 @@ console.log(data)
           <PlayingCard key={cardData.id} front={cardData.res.cards[0].image} />
         ))}
       </div>
+      <button onClick={clearCards}>Clear Playing Cards</button>
     </div>
   );
 }

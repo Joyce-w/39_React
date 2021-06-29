@@ -31,7 +31,12 @@ const useAxios = () => {
         )
     };
 
-    return [data, updateData];
+    //function clears cards from state
+    const clearCards = () => {
+        setData([])
+    }
+
+    return [data, updateData, clearCards];
 }
 
 
